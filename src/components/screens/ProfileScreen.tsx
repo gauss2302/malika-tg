@@ -16,7 +16,7 @@ export const ProfileScreen = () => {
   const profileItems = [
     {
       label: "User ID",
-      value: user?.telegramId?.toString() || "N/A",
+      value: user?.telegramId ? String(user.telegramId) : "N/A",
       icon: "🆔",
     },
     {

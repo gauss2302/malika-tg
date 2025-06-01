@@ -1,5 +1,4 @@
 "use client";
-
 import { useTelegramAuth } from "@/hooks/useTelegramAuth";
 
 interface TelegramAuthProps {

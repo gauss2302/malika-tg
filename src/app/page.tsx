@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { init } from "@telegram-apps/sdk-react";
 import { TelegramAuth } from "@/components/auth/TelegramAuth";
-import { Layout } from "@/components/layout/Layout";
+
 import { HomeScreen } from "@/components/screens/HomeScreen";
 
 export default function HomePage() {
@@ -14,9 +14,7 @@ export default function HomePage() {
 
   return (
     <TelegramAuth>
-      <Layout>
-        <HomeScreen />
-      </Layout>
+      <HomeScreen />
     </TelegramAuth>
   );
 }

@@ -14,9 +14,7 @@ export default function ProfilePage() {
 
   return (
     <TelegramAuth>
-      <Layout>
-        <ProfileScreen />
-      </Layout>
+      <ProfileScreen />
     </TelegramAuth>
   );
 }

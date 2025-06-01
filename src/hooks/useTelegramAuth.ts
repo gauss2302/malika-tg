@@ -1,21 +1,49 @@
-import { useEffect } from "react";
-import { useRawInitData } from "@telegram-apps/sdk-react";
+"use client";
+
+import { useEffect, useState } from "react";
 import { useUserStore } from "@/lib/stores/userStore";
 
 export const useTelegramAuth = () => {
   const { setUser, setLoading, setError, isAuthenticated } = useUserStore();
-  // const launchParams = useLaunchParams();
-  const rawInitData = useRawInitData();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const authenticateUser = async () => {
-      if (isAuthenticated) return;
+      if (isAuthenticated || !isMounted) return;
 
       try {
         setLoading(true);
 
-        // Use rawInitData for authentication (this is the correct way in v3)
+        // Get init data from Telegram Web App
+        const rawInitData = window.Telegram?.WebApp?.initData;
+
+        // Development mode: use mock data if no Telegram context
         if (!rawInitData) {
+          if (process.env.NODE_ENV === "development") {
+            console.warn("Development mode: Using mock user data");
+
+            // Mock user data for development
+            const mockUser = {
+              id: 1,
+              telegramId: 123456789,
+              firstName: "Dev",
+              lastName: "User",
+              username: "devuser",
+              photoUrl: undefined,
+              languageCode: "en",
+              isPremium: false,
+              allowsWriteToPm: true,
+              authDate: new Date(),
+            };
+
+            setUser(mockUser);
+            setLoading(false);
+            return;
+          }
           throw new Error("No init data available");
         }
 
@@ -47,7 +75,7 @@ export const useTelegramAuth = () => {
     };
 
     authenticateUser();
-  }, [rawInitData, isAuthenticated, setUser, setLoading, setError]);
+  }, [isAuthenticated, isMounted, setUser, setLoading, setError]);
 
   return useUserStore();
 };

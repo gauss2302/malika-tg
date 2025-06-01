@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import { BottomNavigation } from "@/components/layout/BottomNavigation";
+import { TelegramAuth } from "@/components/auth/TelegramAuth";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,13 +27,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html>
       <body className={inter.className}>
         <Script
           src="https://telegram.org/js/telegram-web-app.js"
           strategy="beforeInteractive"
         />
-        {children}
+        <TelegramAuth>
+          <div className="min-h-screen bg-gray-50 pb-16">
+            <main className="container mx-auto px-4 py-6 max-w-sm">
+              {children}
+            </main>
+            <BottomNavigation />
+          </div>
+        </TelegramAuth>
       </body>
     </html>
   );
