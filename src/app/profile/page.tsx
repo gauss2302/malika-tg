@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import { init } from "@telegram-apps/sdk-react";
 import { TelegramAuth } from "@/components/auth/TelegramAuth";
 import { Layout } from "@/components/layout/Layout";
-import { HomeScreen } from "@/components/screens/HomeScreen";
+import { ProfileScreen } from "@/components/screens/ProfileScreen";
 
-export default function HomePage() {
+export default function ProfilePage() {
   useEffect(() => {
     // Initialize the SDK once when the app starts
     init();
@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <TelegramAuth>
       <Layout>
-        <HomeScreen />
+        <ProfileScreen />
       </Layout>
     </TelegramAuth>
   );
